@@ -1,6 +1,14 @@
+/**
+ * Modal
+ * modal.openModal('modal-name');
+ */
+
 const modal = (() => {
   var publicAPIs = {};
 
+  //
+  // Settings
+  //
   var settings = {
     speedOpen: 50,
     speedClose: 250,
@@ -13,6 +21,10 @@ const modal = (() => {
     selectorInputFocus: "[data-modal-input-focus]",
   };
 
+  /**
+   * Element.closest() polyfill
+   * https://developer.mozilla.org/en-US/docs/Web/API/Element/closest#Polyfill
+   */
   if (!Element.prototype.closest) {
     if (!Element.prototype.matches) {
       Element.prototype.matches =
@@ -31,6 +43,9 @@ const modal = (() => {
     };
   }
 
+  // Trap Focus
+  // https://hiddedevries.nl/en/blog/2017-01-29-using-javascript-to-trap-focus-in-an-element
+  //
   function trapFocus(element) {
     var focusableEls = element.querySelectorAll(
       'a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled])'
@@ -47,11 +62,11 @@ const modal = (() => {
       }
 
       if (e.shiftKey) {
-        if (document.activeElement === firstFocusableEl) {
+        /* shift + tab */ if (document.activeElement === firstFocusableEl) {
           lastFocusableEl.focus();
           e.preventDefault();
         }
-      } else {
+      } /* tab */ else {
         if (document.activeElement === lastFocusableEl) {
           firstFocusableEl.focus();
           e.preventDefault();
@@ -60,6 +75,11 @@ const modal = (() => {
     });
   }
 
+  //
+  // Methods
+  //
+
+  // Toggle accessibility
   var toggleccessibility = function (event) {
     if (event.getAttribute("aria-expanded") === "true") {
       event.setAttribute("aria-expanded", false);
@@ -68,31 +88,44 @@ const modal = (() => {
     }
   };
 
+  // Open Modal
   var openModal = function (event, destination) {
     var target = destination;
 
+    // Check whether the modal is triggered automatically via modal.openModal
     if (typeof event === "string") {
       target = document.getElementById(event);
+      // If modal is triggered via modal.openModal we add a data attribute
+      // to know whether toggleccessibility() should be used when closeModal
+      // as there is no button used
       if (target) {
         target.setAttribute("data-auto-trigger", "");
       }
     }
 
+    // If target doesn't exist, bail
     if (!target) return;
 
+    // Find target
     var overlay = target.querySelector(settings.selectorOverlay),
       wrapper = target.querySelector(settings.selectorWrapper),
       input = target.querySelector(settings.selectorInputFocus);
 
+    // Make it active and remoe hidden class
     target.classList.remove(settings.toggleClass);
 
+    // Make body overflow hidden so it's not scrollable
     document.documentElement.style.overflow = "hidden";
 
+    // Toggle accessibility
+    // Check whether the modal is triggered automatically via modal.openModal
     if (typeof event !== "string") {
       toggleccessibility(event);
     }
 
+    // Show wrapper
     setTimeout(function () {
+      // Show overlay
       if (overlay) {
         var overlayIn = overlay.getAttribute("data-class-in").split(" "),
           overlayOut = overlay.getAttribute("data-class-out").split(" ");
@@ -100,6 +133,7 @@ const modal = (() => {
         overlay.classList.add(...overlayIn);
       }
 
+      // Show drawer
       if (wrapper) {
         var wrapperIn = wrapper.getAttribute("data-class-in").split(" "),
           wrapperOut = wrapper.getAttribute("data-class-out").split(" ");
@@ -107,15 +141,19 @@ const modal = (() => {
         wrapper.classList.add(...wrapperIn);
       }
 
+      // Focus on input
       if (input) {
         input.focus();
       }
 
+      // Trap focus
       trapFocus(target);
     }, settings.speedOpen);
   };
 
+  // Close Modal
   var closeModal = function (event) {
+    // Find target
     var closestParent = event.closest(settings.selectorTarget),
       trigger = document.querySelector(
         '[aria-controls="' + closestParent.id + '"'
@@ -127,6 +165,7 @@ const modal = (() => {
       trigger = document.querySelector('a[href="#' + closestParent.id + '"');
     }
 
+    // Hide overlay
     if (overlay) {
       var overlayIn = overlay.getAttribute("data-class-in").split(" "),
         overlayOut = overlay.getAttribute("data-class-out").split(" ");
@@ -134,6 +173,7 @@ const modal = (() => {
       overlay.classList.add(...overlayOut);
     }
 
+    // Hide wrapper
     if (wrapper) {
       var wrapperIn = wrapper.getAttribute("data-class-in").split(" "),
         wrapperOut = wrapper.getAttribute("data-class-out").split(" ");
@@ -141,20 +181,26 @@ const modal = (() => {
       wrapper.classList.add(...wrapperOut);
     }
 
+    // Remove body overflow hidden
     document.documentElement.style.overflow = "";
 
+    // Toggle accessibility
+    // Check whether the modal was triggered automatically via modal.openModal
     if (closestParent.hasAttribute("data-auto-trigger")) {
       closestParent.removeAttribute("data-auto-trigger");
     } else {
       toggleccessibility(trigger);
     }
 
+    // Make it not active
     setTimeout(function () {
       closestParent.classList.add(settings.toggleClass);
     }, settings.speedClose);
   };
 
+  // Click Handler
   var clickHandler = function (event) {
+    // Find toggle element
     var toggle = event.target,
       trigger,
       target,
@@ -162,6 +208,12 @@ const modal = (() => {
       closest = toggle.closest("a"),
       open = null;
 
+    // Check whether toggle is:
+    // 1. <button data-modal-trigger aria-controls="modal-name" ...
+    // 2. <button data-modal-trigger aria-controls="modal-name"><span>...</span> ...
+    // 3. <a href="#modal-name" ...
+    // 4. <a href="#modal-name"><span>...</span> ...
+    // 5. null
     if (
       toggle.hasAttribute("data-modal-trigger") &&
       toggle.hasAttribute("aria-controls")
@@ -193,24 +245,30 @@ const modal = (() => {
 
     var close = toggle.closest(settings.selectorClose);
 
+    // Open modal when the open button is clicked
     if (open && target) {
       openModal(trigger, target);
     }
 
+    // Close modal when the close button (or overlay area) is clicked
     if (close) {
       closeModal(close);
     }
 
+    // Prevent default link behavior
     if (open || close) {
       event.preventDefault();
     }
   };
 
+  // Keydown Handler, handle Escape button
   var keydownHandler = function (event) {
     if (event.key === "Escape" || event.keyCode === 27) {
+      // Find all possible modals
       var modals = document.querySelectorAll(settings.selectorTarget),
         i;
 
+      // Find active modals and close them when escape is clicked
       for (i = 0; i < modals.length; ++i) {
         if (!modals[i].classList.contains(settings.toggleClass)) {
           closeModal(modals[i]);
@@ -220,6 +278,9 @@ const modal = (() => {
   };
 
   publicAPIs.init = function () {
+    //
+    // Inits & Event Listeners
+    //
     document.addEventListener("click", clickHandler, false);
     document.addEventListener("keydown", keydownHandler, false);
   };
