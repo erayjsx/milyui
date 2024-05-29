@@ -20,7 +20,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  /* z-index: 40; */
+  z-index: none;
   width: 100%;
   background-color: black;
   opacity: 0;
