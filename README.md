@@ -19,14 +19,12 @@ For CDN
 ```
 
 ## Components
-components.
 
 | Component | README |
-| ------ | ------ |
-| Drawer| [plugins/dropbox/README.md][PlDb] |
-| Modal | [plugins/github/README.md][PlGh] |
+| --------- | ------ |
+| Drawer    | ...    |
+| Modal     | ...    |
 
 ## License
 
 MIT
-
