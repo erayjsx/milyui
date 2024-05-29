@@ -5,7 +5,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
-    library: "milyui",
+    library: "@erayjs/milyui",
     libraryTarget: "umd",
     globalObject: "this",
   },

@@ -1,7 +1,7 @@
 {
-  "name": "milyui",
+  "name": "@erayjs/milyui",
   "version": "0.0.1",
-  "description": "milyui",
+  "description": "@erayjs/milyui - A simple UI library for drawer and modal",
   "main": "dist/bundle.js",
   "scripts": {
     "build": "webpack --mode production"
