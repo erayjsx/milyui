@@ -1,6 +1,6 @@
 {
   "name": "@erayjs/milyui",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "@erayjs/milyui - A simple UI library for drawer and modal",
   "main": "dist/bundle.js",
   "scripts": {
@@ -24,7 +24,7 @@
     "@erayjsx/milyui"
   ],
   "author": "erayjs",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.24.6",
     "@babel/preset-env": "^7.24.6",
