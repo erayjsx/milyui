@@ -1,6 +1,6 @@
 {
   "name": "@erayjs/milyui",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "@erayjs/milyui - A simple UI library for drawer and modal",
   "main": "dist/bundle.js",
   "scripts": {
@@ -15,13 +15,15 @@
     "js ui",
     "drawer",
     "modal",
+    "accordion",
     "js drawer",
     "js modal",
+    "js accordion",
     "erayjs",
     "erayjsx",
     "@erayjs",
     "@erayjsx",
-    "@erayjsx/milyui"
+    "@erayjs/milyui"
   ],
   "author": "erayjs",
   "license": "MIT",
