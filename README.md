@@ -15,7 +15,7 @@ For CDN
 ```sh
 <script src="https://unpkg.com/@erayjs/milyui"></script>
 
-<script src="https://cdn.jsdelivr.net/gh/erayjsx/milyui@0.0.3/dist/bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/erayjsx/milyui@latest/dist/bundle.js"></script>
 ```
 
 ## Components
