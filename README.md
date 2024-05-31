@@ -4,8 +4,6 @@
 
 ## Installation
 
-Install
-
 ```sh
 npm install @erayjs/milyui
 ```
@@ -13,21 +11,25 @@ npm install @erayjs/milyui
 For CDN
 
 ```html
-<script src="https://unpkg.com/@erayjs/milyui"></script>
-```
-
-```html
-<script src="https://cdn.jsdelivr.net/gh/erayjsx/milyui@latest/dist/bundle.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@erayjs/milyui@latest/dist/bundle.js"></script>
 ```
 
 ## Components
 
-| Component | README |
-| --------- | ------ |
-| Accordion | ...    |
-| Drawer    | ...    |
-| Modal     | ...    |
+| Component | README                                                               |
+| --------- | -------------------------------------------------------------------- |
+| Accordion | [Documentation](https://milyui.vercel.app/components/accordion.html) |
+| Drawer    | [Documentation](https://milyui.vercel.app/components/drawer.html)    |
+| Modal     | [Documentation](https://milyui.vercel.app/components/modal.html)     |
+| Alert     | Soon                                                                 |
+| Collapse  | Soon                                                                 |
+| Dropdown  | Soon                                                                 |
+| Menu      | Soon                                                                 |
+| Popover   | Soon                                                                 |
+| Toast     | Soon                                                                 |
 
 ## License
 
+```html
 MIT
+```
