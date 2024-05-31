@@ -12,16 +12,18 @@ npm install @erayjs/milyui
 
 For CDN
 
-```sh
+```html
 <script src="https://unpkg.com/@erayjs/milyui"></script>
+```
 
+```html
 <script src="https://cdn.jsdelivr.net/gh/erayjsx/milyui@latest/dist/bundle.js"></script>
 ```
 
 ## Components
 
-| Component |   README    |
-| --------- |   ------  |
+| Component | README |
+| --------- | ------ |
 | Accordion | ...    |
 | Drawer    | ...    |
 | Modal     | ...    |

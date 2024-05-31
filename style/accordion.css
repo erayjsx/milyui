@@ -2,6 +2,7 @@
   width: 100%;
   overflow: hidden;
 }
+
 .accordion__intro {
   width: 100%;
   position: relative;
@@ -11,12 +12,14 @@
   display: flex;
   align-items: center;
 }
+
 .accordion__intro svg {
   opacity: 0.5;
   position: absolute;
   right: 20px;
   transition: transform 0.25s ease-out;
 }
+
 .accordion__content {
   height: 0;
   padding: 0 20px;
@@ -27,21 +30,28 @@
   color: #f1f1f1;
   opacity: 0;
 }
+
 .accordion h4,
 .accordion p {
-  line-height: 1;
+  line-height: 1.5;
 }
+
 .accordion h4 {
   width: 90%;
   color: #000;
   font-size: 17px;
   font-weight: 500;
-  line-height: 1.5;
 }
+
 .accordion p {
   color: #777;
   font-size: 15px;
 }
+
+.accordion__active {
+  background-color: #eee;
+}
+
 .accordion__active .accordion__content {
   padding: 20px;
   opacity: 1;
