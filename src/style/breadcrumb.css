@@ -11,7 +11,3 @@
 .breadcrumb-item a {
   text-decoration: none;
 }
-
-.breadcrumb-item.active a {
-  text-decoration: underline;
-}
