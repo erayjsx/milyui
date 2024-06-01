@@ -1,0 +1,17 @@
+.breadcrumb {
+  list-style: none;
+  display: flex;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: "/";
+  padding: 0 5px;
+}
+
+.breadcrumb-item a {
+  text-decoration: none;
+}
+
+.breadcrumb-item.active a {
+  text-decoration: underline;
+}
